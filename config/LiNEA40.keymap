@@ -6,6 +6,13 @@
 #include <input/processors.dtsi>
 #include <zephyr/dt-bindings/input/input-event-codes.h>
 
+#define FUNCTION 1
+#define NUM 2
+#define SYSTEM 3
+#define MOUSE 4
+#define SCROLL 5
+
+
 //mouse cursor
 &mmv {
     delay-ms = <20>;
