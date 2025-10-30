@@ -124,7 +124,7 @@
 &kp F1              &kp F2         &kp F3  &kp F4   &kp F5                     &kp F6  &kp F7  &kp F8         &kp F9            &kp F10
 &kp N1              &kp N2         &kp N3  &kp N4   &kp N5       &kp N6  &kp N7  &kp N8         &kp N9            &kp N0
 &mt LEFT_SHIFT F11  &mt LCTRL F12  &none   &kp TAB  &kp ENTER    &none   &none   &kp RIGHT_WIN  &mt RCTRL PERIOD  &kp RIGHT_SHIFT
-&trans              &trans         &trans  &trans   &mo 3      &trans  &trans  &trans                                           &trans &trans &trans &trans
+&trans              &trans         &trans  &trans   &mo 3      &trans  &trans  &trans                                           &trans &trans &trans
             >;
             
             sensor-bindings = <&re_kp C_VOLUME_DOWN C_VOLUME_UP>;
@@ -135,7 +135,7 @@
 &none           &none         &none         &none         &none                             &none   &none  &none          &none      &none
 &none           &none         &none         &none         &none           &none   &none  &none          &none      &none
 &bt BT_SEL 0    &bt BT_SEL 1  &bt BT_SEL 2  &bt BT_SEL 3  &bt BT_CLR      &none   &none  &kp RIGHT_WIN  &kp RCTRL  &kp RIGHT_SHIFT
-&trans          &trans        &trans        &trans        &trans        &trans      &trans  &trans                                   &trans &trans &trans &trans
+&trans          &trans        &trans        &trans        &trans        &trans      &trans  &trans                                   &trans &trans &trans 
             >;
         };
 
@@ -144,7 +144,7 @@
 &trans  &trans  &trans  &trans  &trans                     &trans  &trans     &mkp MCLK  &trans     &trans
 &trans  &trans  &trans  &trans  &trans    &trans  &mkp LCLK  &mo 5      &mkp RCLK  &trans
 &trans  &trans  &trans  &trans  &trans    &trans  &trans     &trans     &trans     &trans
-&trans  &trans  &trans  &trans  &trans  &mkp LCLK  &trans  &trans                                   &trans &trans &trans &trans
+&trans  &trans  &trans  &trans  &trans  &mkp LCLK  &trans  &trans                                   &trans &trans &trans
             >;
         };
 
@@ -153,7 +153,7 @@
 &trans  &trans  &trans  &trans  &trans                     &trans  &trans     &mkp MCLK  &trans     &trans
 &trans  &trans  &trans  &trans  &trans    &trans  &mkp LCLK  &mo 5      &mkp RCLK  &trans
 &trans  &trans  &trans  &trans  &trans    &trans  &trans     &trans     &trans     &trans
-&trans  &trans  &trans  &trans  &trans  &mkp LCLK  &trans  &trans                                   &trans &trans &trans &trans
+&trans  &trans  &trans  &trans  &trans  &mkp LCLK  &trans  &trans                                   &trans &trans &trans
             >;
         };
     };
