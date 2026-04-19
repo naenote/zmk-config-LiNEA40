@@ -50,11 +50,7 @@
         reg = <0>;
         spi-max-frequency = <2000000>;
         irq-gpios = <&xiao_d 6 (GPIO_ACTIVE_LOW | GPIO_PULL_UP)>; //MOT-D6
-
-        // 移行元 .conf から移動した設定
         cpi = <800>;
-        invert-x;
-        invert-y;
 
         // Input Subsystem へのイベント出力設定（必須）
         evt-type = <INPUT_EV_REL>;
