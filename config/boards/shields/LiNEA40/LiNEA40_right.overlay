@@ -1,7 +1,5 @@
 #include "LiNEA40.dtsi"
-
-#define MOUSE_LAYER 4
-#define SCROLL_LAYER 5
+#include <zephyr/dt-bindings/input/input-event-codes.h>
 
 &default_transform {
     col-offset = <6>;
@@ -10,26 +8,17 @@
 &kscan0 {
     col-gpios
         = <&xiao_d 10 GPIO_ACTIVE_HIGH> //col0-D10
-        , <&xiao_d 9 GPIO_ACTIVE_HIGH>  //col1-D9
-        , <&xiao_d 8 GPIO_ACTIVE_HIGH>  //col2-D8
-        , <&xiao_d 7 GPIO_ACTIVE_HIGH>  //col3-D7
-        , <&gpio0 10 GPIO_ACTIVE_HIGH>  //col4-NFC2
+        , <&xiao_d 9  GPIO_ACTIVE_HIGH> //col1-D9
+        , <&xiao_d 8  GPIO_ACTIVE_HIGH> //col2-D8
+        , <&xiao_d 7  GPIO_ACTIVE_HIGH> //col3-D7
+        , <&gpio0  10 GPIO_ACTIVE_HIGH> //col4-NFC2
         ;
 };
-
-/ {
-    trackball_listener {
-        compatible = "zmk,input-listener";
-        device = <&trackball>;
-
-    };
-};
-
 
 &pinctrl {
     spi0_default: spi0_default {
         group1 {
-            psels = <NRF_PSEL(SPIM_SCK, 0, 5)>   // SCLK-D5
+            psels = <NRF_PSEL(SPIM_SCK,  0, 5)>  // SCLK-D5
                   , <NRF_PSEL(SPIM_MOSI, 0, 4)>  // SDIO-D4
                   , <NRF_PSEL(SPIM_MISO, 0, 4)>  // SDIO-D4
                   ;
@@ -38,7 +27,7 @@
 
     spi0_sleep: spi0_sleep {
         group1 {
-            psels = <NRF_PSEL(SPIM_SCK, 0, 5)>   // SCLK-D5
+            psels = <NRF_PSEL(SPIM_SCK,  0, 5)>  // SCLK-D5
                   , <NRF_PSEL(SPIM_MOSI, 0, 4)>  // SDIO-D4
                   , <NRF_PSEL(SPIM_MISO, 0, 4)>  // SDIO-D4
                   ;
@@ -57,19 +46,32 @@
 
     trackball: trackball@0 {
         status = "okay";
-        compatible = "pixart,pmw3610";
+        compatible = "pixart,pmw3610-alt";
         reg = <0>;
         spi-max-frequency = <2000000>;
         irq-gpios = <&xiao_d 6 (GPIO_ACTIVE_LOW | GPIO_PULL_UP)>; //MOT-D6
-        automouse-layer = <MOUSE_LAYER>;
-        scroll-layers = <SCROLL_LAYER>;
-        //automouse-layer = <1>;
-        //snipe-layers = <2>;
-        //scroll-layers = <5>;
-        //scroll-layers = <4 5 6>;
+
+        // 移行元 .conf から移動した設定
+        cpi = <800>;
+        invert-x;
+        invert-y;
+
+        // Input Subsystem へのイベント出力設定（必須）
+        evt-type = <INPUT_EV_REL>;
+        x-input-code = <INPUT_REL_X>;
+        y-input-code = <INPUT_REL_Y>;
+
+        // BLE無線環境でセンサーをアクティブ状態に維持する
+        // ZMKがIDLE/SLEEPに入ったら通常のダウンシフトへ戻る
+        force-awake;
+
+        // force-awake 中のサンプリングを 8ms→4ms に短縮（約250Hz相当）
+        // USBで使う場合や、より高レートが必要な場合に有効化
+        // force-awake-4ms-mode;
     };
 };
 
+// dtsi 側の disabled プレースホルダーを有効化
 &trackball_listener {
     status = "okay";
     device = <&trackball>;
