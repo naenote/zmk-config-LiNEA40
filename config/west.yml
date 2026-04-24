@@ -23,6 +23,6 @@ manifest:
       revision: v0.3-branch
     - name: zmk-input-processor-movement-threshold
       remote: naenote
-      revision: main
+      revision: v0.1.0
   self:
     path: config

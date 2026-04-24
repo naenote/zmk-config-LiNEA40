@@ -82,7 +82,7 @@
 &trackball_listener {
     input-processors =
         <&zip_xy_transform INPUT_TRANSFORM_Y_INVERT>,
-        <&zip_movement_threshold 8>,
+        <&zip_movement_threshold 2>,
         <&zip_temp_layer MOUSE 300>;
 
     scroller {
