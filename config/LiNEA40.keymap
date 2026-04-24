@@ -42,6 +42,12 @@
     input_processors {
 
         /omit-if-no-ref/
+        zip_movement_threshold: zip_movement_threshold {
+            compatible = "zmk,input-processor-movement-threshold";
+            #input-processor-cells = <1>;
+        };
+
+        /omit-if-no-ref/
         zip_temp_layer: zip_temp_layer {
             compatible = "zmk,input-processor-temp-layer";
             #input-processor-cells = <2>;
@@ -74,8 +80,9 @@
 };
 
 &trackball_listener {
-    input-processors = 
+    input-processors =
         <&zip_xy_transform INPUT_TRANSFORM_Y_INVERT>,
+        <&zip_movement_threshold 8>,
         <&zip_temp_layer MOUSE 300>;
 
     scroller {

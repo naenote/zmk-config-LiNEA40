@@ -19,5 +19,8 @@ manifest:
     - name: zmk-rgbled-widget
       remote: caksoylar
       revision: v0.3-branch
+    - name: zmk-input-processor-movement-threshold
+      url: https://github.com/naenote/zmk-input-processor-movement-threshold
+      revision: main
   self:
     path: config
