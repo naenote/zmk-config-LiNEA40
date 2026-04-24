@@ -8,6 +8,8 @@ manifest:
       url-base: https://github.com/kay-yokoyama
     - name: caksoylar
       url-base: https://github.com/caksoylar
+    - name: naenote
+      url-base: https://github.com/naenote
   projects:
     - name: zmk
       remote: zmkfirmware
@@ -20,7 +22,7 @@ manifest:
       remote: caksoylar
       revision: v0.3-branch
     - name: zmk-input-processor-movement-threshold
-      url: https://github.com/naenote/zmk-input-processor-movement-threshold
+      remote: naenote
       revision: main
   self:
     path: config
