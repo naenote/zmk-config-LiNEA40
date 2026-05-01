@@ -90,7 +90,7 @@
             };
         };
         /* Listener B: AML 専用（AMLの制御）*/
-        trackball_listener: trackball_listener {
+        trackball_aml_listener: trackball_aml_listener {
             compatible = "zmk,input-listener";
             device = <&trackball>;
             input-processors =
