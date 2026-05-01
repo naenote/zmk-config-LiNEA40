@@ -80,8 +80,6 @@
 
 /* Listener A: HID 専用（移動とスクロールの制御）*/
 &trackball_listener {
-    compatible = "zmk,input-listener";
-    device = <&trackball>;
     input-processors =
         <&zip_xy_transform INPUT_TRANSFORM_Y_INVERT>;
     scroller {
@@ -93,8 +91,6 @@
 };
 /* Listener B: AML 専用（AMLの制御）*/
 &trackball_aml_listener {
-    compatible = "zmk,input-listener";
-    device = <&trackball>;
     input-processors =
         <&zip_movement_threshold 2>,   /* 閾値以下は STOP → AML 発動しない */
         <&zip_temp_layer MOUSE 300>,   /* 閾値超えのみここに届く → AML 発動 */
