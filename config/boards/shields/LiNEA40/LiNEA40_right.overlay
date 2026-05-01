@@ -72,3 +72,7 @@
     status = "okay";
     device = <&trackball>;
 };
+&trackball_aml_listener {
+    status = "okay";
+    device = <&trackball>;
+};
