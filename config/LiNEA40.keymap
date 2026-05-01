@@ -97,6 +97,7 @@
                 <&zip_movement_threshold 2>,   /* 閾値以下は STOP → AML 発動しない */
                 <&zip_temp_layer MOUSE 300>,   /* 閾値超えのみここに届く → AML 発動 */
                 <&zip_movement_drop>;          /* HID 更新をブロック（二重移動防止） */
+        };
     };
 };
 
