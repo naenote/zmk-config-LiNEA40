@@ -98,4 +98,8 @@
         compatible = "zmk,input-listener";
         status = "disabled";
     };
+    trackball_aml_listener: trackball_aml_listener {
+        compatible = "zmk,input-listener";
+        status = "disabled";
+    };
 };
