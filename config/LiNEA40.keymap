@@ -87,7 +87,7 @@
                 input-processors =
                     <&zip_xy_to_scroll_mapper>,
                     <&zip_scroll_scaler 1 5>;
-            }
+            };
         };
         /* Listener B: AML 専用（AMLの制御）*/
         trackball_listener: trackball_listener {
