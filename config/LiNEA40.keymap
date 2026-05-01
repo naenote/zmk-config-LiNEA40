@@ -48,6 +48,12 @@
         };
 
         /omit-if-no-ref/
+        zip_movement_drop: zip_movement_drop {
+            compatible = "zmk,input-processor-movement-drop";
+            #input-processor-cells = <0>;
+        };
+
+        /omit-if-no-ref/
         zip_temp_layer: zip_temp_layer {
             compatible = "zmk,input-processor-temp-layer";
             #input-processor-cells = <2>;
@@ -69,6 +75,28 @@
             codes = <INPUT_REL_WHEEL>;
             track-remainders;
         };
+
+        /* Listener A: HID 専用（移動とスクロールの制御）*/
+        trackball_listener: trackball_listener {
+            compatible = "zmk,input-listener";
+            device = <&trackball>;
+            input-processors =
+                <&zip_xy_transform INPUT_TRANSFORM_Y_INVERT>;
+            scroller {
+                layers = <SCROLL>;
+                input-processors =
+                    <&zip_xy_to_scroll_mapper>,
+                    <&zip_scroll_scaler 1 5>;
+            }
+        };
+        /* Listener B: AML 専用（AMLの制御）*/
+        trackball_listener: trackball_listener {
+            compatible = "zmk,input-listener";
+            device = <&trackball>;
+            input-processors =
+                <&zip_movement_threshold 2>,   /* 閾値以下は STOP → AML 発動しない */
+                <&zip_temp_layer MOUSE 300>,   /* 閾値超えのみここに届く → AML 発動 */
+                <&zip_movement_drop>;          /* HID 更新をブロック（二重移動防止） */
     };
 };
 
@@ -76,20 +104,6 @@
     speed_up {
         layers = <FUNCTION>;
         input-processors = <&zip_wheel_scaler 3 1>;
-    };
-};
-
-&trackball_listener {
-    input-processors =
-        <&zip_xy_transform INPUT_TRANSFORM_Y_INVERT>,
-        <&zip_movement_threshold 2>,
-        <&zip_temp_layer MOUSE 300>;
-
-    scroller {
-        layers = <SCROLL>;
-        input-processors =
-            <&zip_xy_to_scroll_mapper>,
-            <&zip_scroll_scaler 1 5>;
     };
 };
 
