@@ -66,15 +66,6 @@
                 35 // SPACE
             >;
         };
-
-        /omit-if-no-ref/
-        zip_wheel_scaler: zip_wheel_scaler {
-            compatible = "zmk,input-processor-scaler";
-            #input-processor-cells = <2>;
-            type = <INPUT_EV_REL>;
-            codes = <INPUT_REL_WHEEL>;
-            track-remainders;
-        };
     };
 };
 
@@ -86,7 +77,12 @@
         layers = <SCROLL>;
         input-processors =
             <&zip_xy_to_scroll_mapper>,
-            <&zip_scroll_scaler 1 10>;
+            /* スクロール感度: 分母を大きくするほど鈍くなる（トラックボールの
+               生カウントを 1/N してホイールtickへ変換。track-remainders により
+               端数は蓄積されるので、ゆっくり転がしても取りこぼしは無い）。
+               cpi=800 なので 1/10 ではボール 1 インチ = 80 tick と過敏だった。
+               1/40 = 20 tick/inch 相当。もっと鈍くしたい場合は 60〜80 へ。 */
+            <&zip_scroll_scaler 1 40>;
     };
 };
 /* Listener B: AML 専用（AMLの制御）*/
@@ -95,13 +91,6 @@
         <&zip_movement_threshold 16>,   /* 閾値以下は STOP → AML 発動しない */
         <&zip_temp_layer MOUSE 300>,   /* 閾値超えのみここに届く → AML 発動 */
         <&zip_movement_drop>;          /* HID 更新をブロック（二重移動防止） */
-};
-
-&msc_input_listener {
-    speed_up {
-        layers = <FUNCTION>;
-        input-processors = <&zip_wheel_scaler 3 1>;
-    };
 };
 
 / {
@@ -151,7 +140,8 @@
 &mt LEFT_SHIFT F11  &mt LCTRL F12  &none   &kp TAB  &kp ENTER                    &none   &none   &kp RIGHT_WIN  &mt RCTRL PERIOD  &kp RIGHT_SHIFT
 &trans              &trans         &trans  &trans   &mo 3      &trans    &trans  &trans          &trans         &trans            &trans
             >;
-            sensor-bindings = <&re_kp C_VOLUME_DOWN C_VOLUME_UP>;
+            /* 左手ロータリーエンコーダ: 時計回り=右スクロール / 反時計回り=左スクロール */
+            sensor-bindings = <&mouse_scrl SCRL_RIGHT SCRL_LEFT>;
         };
 
         SYSTEM {
