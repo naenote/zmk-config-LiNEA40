@@ -48,6 +48,12 @@
         };
 
         /omit-if-no-ref/
+        zip_movement_sustain: zip_movement_sustain {
+            compatible = "zmk,input-processor-movement-sustain";
+            #input-processor-cells = <2>;
+        };
+
+        /omit-if-no-ref/
         zip_movement_drop: zip_movement_drop {
             compatible = "zmk,input-processor-movement-drop";
             #input-processor-cells = <0>;
@@ -88,9 +94,10 @@
 /* Listener B: AML 専用（AMLの制御）*/
 &trackball_aml_listener {
     input-processors =
-        <&zip_movement_threshold 16>,   /* 閾値以下は STOP → AML 発動しない */
-        <&zip_temp_layer MOUSE 300>,   /* 閾値超えのみここに届く → AML 発動 */
-        <&zip_movement_drop>;          /* HID 更新をブロック（二重移動防止） */
+        <&zip_movement_threshold 16>,     /* ノイズ相当の微小移動を除去 */
+        <&zip_movement_sustain 60 150>,   /* 60ms 続かない動き（打鍵衝撃）は STOP */
+        <&zip_temp_layer MOUSE 300>,      /* ここまで届いたものだけ AML 発動 */
+        <&zip_movement_drop>;             /* HID 更新をブロック（二重移動防止） */
 };
 
 / {

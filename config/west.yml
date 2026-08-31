@@ -23,6 +23,7 @@ manifest:
       revision: v0.3-branch
     - name: zmk-input-processor-movement-threshold
       remote: naenote
-      revision: main
+      # TODO: モジュール側を main にマージしたら revision: main に戻す
+      revision: claude/movement-sustain-processor
   self:
     path: config
