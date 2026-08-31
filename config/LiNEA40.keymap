@@ -66,15 +66,6 @@
                 35 // SPACE
             >;
         };
-
-        /omit-if-no-ref/
-        zip_wheel_scaler: zip_wheel_scaler {
-            compatible = "zmk,input-processor-scaler";
-            #input-processor-cells = <2>;
-            type = <INPUT_EV_REL>;
-            codes = <INPUT_REL_WHEEL>;
-            track-remainders;
-        };
     };
 };
 
@@ -100,15 +91,6 @@
         <&zip_movement_threshold 16>,   /* 閾値以下は STOP → AML 発動しない */
         <&zip_temp_layer MOUSE 300>,   /* 閾値超えのみここに届く → AML 発動 */
         <&zip_movement_drop>;          /* HID 更新をブロック（二重移動防止） */
-};
-
-&msc_input_listener {
-    /* エンコーダの縦スクロールを 3 倍速に。FUNCTION は横スクロールへ用途変更
-       したため、高速縦スクロールは SCROLL レイヤへ移設。 */
-    speed_up {
-        layers = <SCROLL>;
-        input-processors = <&zip_wheel_scaler 3 1>;
-    };
 };
 
 / {
@@ -149,9 +131,6 @@
 &kp LEFT_SHIFT  &kp LCTRL           &none      &kp LG(H)     &kp LEFT_BRACE                                 &kp RIGHT_BRACE        &kp HOME        &kp K_CONTEXT_MENU  &mt RCTRL END  &mt RIGHT_SHIFT BACKSLASH
 &trans          &trans              &trans     &trans        &trans                &trans    &kp BACKSPACE  &mo 3                                  &trans              &trans         &trans
             >;
-
-            /* 左手ロータリーエンコーダ: 時計回り=右スクロール / 反時計回り=左スクロール */
-            sensor-bindings = <&mouse_scrl SCRL_RIGHT SCRL_LEFT>;
         };
 
         NUM {
@@ -161,7 +140,8 @@
 &mt LEFT_SHIFT F11  &mt LCTRL F12  &none   &kp TAB  &kp ENTER                    &none   &none   &kp RIGHT_WIN  &mt RCTRL PERIOD  &kp RIGHT_SHIFT
 &trans              &trans         &trans  &trans   &mo 3      &trans    &trans  &trans          &trans         &trans            &trans
             >;
-            sensor-bindings = <&re_kp C_VOLUME_DOWN C_VOLUME_UP>;
+            /* 左手ロータリーエンコーダ: 時計回り=右スクロール / 反時計回り=左スクロール */
+            sensor-bindings = <&mouse_scrl SCRL_RIGHT SCRL_LEFT>;
         };
 
         SYSTEM {
